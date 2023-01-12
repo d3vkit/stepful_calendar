@@ -35,10 +35,11 @@ jobs:
             bundle config set path 'vendor/bundle'
             bundle check || bundle install --jobs=4 --retry=3
 
-      - run:
-          name: Dependencies security audit
-          command: |
-            bundle exec bundle-audit check --update
+      # TODO: https://trello.com/c/LR3mvnSi/2-add-bundle-audit-gem
+      # - run:
+      #     name: Dependencies security audit
+      #     command: |
+      #       bundle exec bundle-audit check --update
 
       - run:
           name: Clean up gems before we save
