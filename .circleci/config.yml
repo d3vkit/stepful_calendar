@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:3.1.1
+      - image: cimg/ruby:3.2.0
     resource_class: small
 
     steps:
@@ -67,13 +67,13 @@ jobs:
 
   run_tests:
     docker:
-      - image: circleci/ruby:3.1.1
+      - image: cimg/ruby:3.2.0
         environment:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: zeitplanapp
 
-      - image: circleci/postgres:10.13-ram
+      - image: cimg/postgres:10.13-ram
         environment:
           POSTGRES_USER: zeitplanapp
           POSTGRES_PASSWORD: "password1"
@@ -156,7 +156,7 @@ jobs:
 
   deploy_staging:
     docker:
-      - image: circleci/ruby:3.1.1
+      - image: cimg/ruby:3.2.0
     resource_class: small
     steps:
       - checkout
@@ -167,7 +167,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/ruby:3.1.1
+      - image: cimg/ruby:3.2.0
     resource_class: small
     steps:
       - checkout
