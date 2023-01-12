@@ -76,7 +76,7 @@ jobs:
 
       - image: cimg/postgres:14.0
         environment:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: stepful_calendar
           POSTGRES_PASSWORD: circle_test
 
       - image: redis
