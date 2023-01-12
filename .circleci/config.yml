@@ -74,10 +74,10 @@ jobs:
           PGHOST: localhost
           PGUSER: zeitplanapp
 
-      - image: cimg/postgres:10.13-ram
+      - image: cimg/postgres:14.0
         environment:
-          POSTGRES_USER: zeitplanapp
-          POSTGRES_PASSWORD: "password1"
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: circle_test
 
       - image: redis
     resource_class: small
