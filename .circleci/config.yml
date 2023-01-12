@@ -1,0 +1,198 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:3.1.1
+    resource_class: small
+
+    steps:
+      - checkout
+
+      - run:
+          name: Get the Gemfile.lock from the main branch
+          command: |
+            git show main:Gemfile.lock > MainGemfile.lock
+      - restore_cache:
+          keys:
+            - v1-dependencies-gem-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-gem-{{ checksum "MainGemfile.lock" }}
+            - v1-dependencies-gem-
+
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      - run:
+          name: bundle install
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle check || bundle install --jobs=4 --retry=3
+
+      - run:
+          name: Dependencies security audit
+          command: |
+            bundle exec bundle-audit check --update
+
+      - run:
+          name: Clean up gems before we save
+          command: |
+            bundle clean
+
+      - save_cache:
+          key: v1-dependencies-gem-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - v1-rubocop-cache-{{ checksum ".rubocop.yml" }}-{{ .Branch }}
+            - v1-rubocop-cache-{{ checksum ".rubocop.yml" }}-main
+            - v1-rubocop-cache-{{ checksum ".rubocop.yml" }}
+
+      # - run:
+      #     name: Rubocop
+      #     command: bundle exec rubocop --parallel
+
+      - save_cache:
+          key: v1-rubocop-cache-{{ checksum ".rubocop.yml" }}-{{ .Branch }}-{{ epoch }}
+          paths:
+            - ../.cache/rubocop_cache
+
+  run_tests:
+    docker:
+      - image: circleci/ruby:3.1.1
+        environment:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: zeitplanapp
+
+      - image: circleci/postgres:10.13-ram
+        environment:
+          POSTGRES_USER: zeitplanapp
+          POSTGRES_PASSWORD: "password1"
+
+      - image: redis
+    resource_class: small
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-gem-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      - run:
+          name: bundle install
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle check || bundle install --jobs=4 --retry=3
+
+      - restore_cache:
+          keys:
+            - v1-bootsnap-cache-{{ checksum "Gemfile.lock" }}-{{ .Branch }}
+            - v1-bootsnap-cache-{{ checksum "Gemfile.lock" }}-main
+
+      - run:
+            name: Wait for Redis
+            command: |
+                dockerize -wait tcp://localhost:6379 -timeout 2m
+
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Setup database
+          command: |
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
+
+      - run:
+          name: Create test results directory
+          command: |
+            mkdir tmp/test-results
+
+      - run:
+          name: Run specs
+          command: |
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
+
+            bundle exec rspec \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out tmp/test-results/rspec.xml \
+              --format progress \
+              $TEST_FILES
+      - save_cache:
+          key: v1-bootsnap-cache-{{ checksum "Gemfile.lock" }}-{{ .Branch }}-{{ epoch }}
+          paths:
+            - tmp/bootsnap_cache
+
+       # collect reports
+      - store_test_results:
+          path: tmp/test-results
+
+      - store_artifacts:
+          path: tmp/test-results
+          destination: test-results
+
+      - store_artifacts:
+          path: coverage
+
+  deploy_staging:
+    docker:
+      - image: circleci/ruby:3.1.1
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Deploy Main to Staging
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_STAGING_APP_NAME.git main -f
+
+  deploy:
+    docker:
+      - image: circleci/ruby:3.1.1
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Deploy Main to Production
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - run_tests:
+          requires:
+            - build
+      - deploy_staging:
+          requires:
+            - run_tests
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - deploy_staging
+          filters:
+            branches:
+              only: main
