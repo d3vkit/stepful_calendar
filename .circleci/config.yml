@@ -181,9 +181,9 @@ workflows:
   build-deploy:
     jobs:
       - build
-      # - run_tests:
-      #     requires:
-      #       - build
+      - run_tests:
+          requires:
+            - build
       # - deploy_staging:
       #     requires:
       #       - run_tests
