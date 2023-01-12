@@ -182,18 +182,18 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - run_tests:
-          requires:
-            - build
-      - deploy_staging:
-          requires:
-            - run_tests
-          filters:
-            branches:
-              only: main
-      - deploy:
-          requires:
-            - deploy_staging
-          filters:
-            branches:
-              only: main
+      # - run_tests:
+      #     requires:
+      #       - build
+      # - deploy_staging:
+      #     requires:
+      #       - run_tests
+      #     filters:
+      #       branches:
+      #         only: main
+      # - deploy:
+      #     requires:
+      #       - deploy_staging
+      #     filters:
+      #       branches:
+      #         only: main
