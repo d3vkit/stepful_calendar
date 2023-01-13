@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -42,8 +44,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'faker'
 gem 'bundle-audit'
+gem 'faker'
 gem 'rubocop', require: false
 gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false

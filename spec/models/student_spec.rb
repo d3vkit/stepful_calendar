@@ -2,7 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe Student, type: :model do
+  it { is_expected.to have_many(:appointments).dependent(:destroy) }
+
   it 'inherits from User' do
     expect(Student).to inherit_from(User)
   end
