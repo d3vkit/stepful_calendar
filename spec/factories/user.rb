@@ -2,16 +2,15 @@
 
 FactoryBot.define do
   factory :user do
-    initialize_with { type.present? ? type.constantize.new : new }
-
     id { SecureRandom.uuid }
     name { Faker::Name.name }
+    type { 'student' }
 
-    trait :coach do
+    factory :coach, class: 'Coach', parent: :user do
       type { 'coach' }
     end
 
-    trait :student do
+    factory :student, class: 'Student', parent: :user do
       type { 'student' }
     end
   end

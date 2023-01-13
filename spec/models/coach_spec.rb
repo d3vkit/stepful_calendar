@@ -2,8 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Coach, type: :model do
+RSpec.describe Coach do
+  it { is_expected.to have_many(:calendars).dependent(:destroy) }
+
   it 'inherits from User' do
-    expect(Coach).to inherit_from(User)
+    expect(described_class).to inherit_from(User)
   end
 end

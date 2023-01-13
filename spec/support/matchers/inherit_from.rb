@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 
 RSpec::Matchers.define :inherit_from do |superclass|
@@ -7,7 +9,7 @@ RSpec::Matchers.define :inherit_from do |superclass|
 
   failure_message do |klass|
     "Expected #{klass} to inherit from #{superclass}. " \
-    "Ancestors: #{klass.ancestors}"
+      "Ancestors: #{klass.ancestors}"
   end
 
   failure_message_when_negated do |klass|
