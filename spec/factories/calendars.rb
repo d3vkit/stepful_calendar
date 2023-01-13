@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :calendar do
-    user { nil }
+    coach
   end
 end
