@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class Appointment < ApplicationRecord
-  belongs_to :calendar
+  belongs_to :availability
   belongs_to :student, foreign_key: :user_id, inverse_of: :appointments
 
-  validates :start_time, :end_time, presence: true
+  delegate :start_time, to: :availability
+  delegate :end_time, to: :availability
+
+  def self.upcoming
+    includes(:availability).where(availabilities: { reserved: true, start_time: Time.current.. })
+  end
 end

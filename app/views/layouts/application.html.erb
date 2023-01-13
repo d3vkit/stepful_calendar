@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Calendar</title>
+    <title>Stepful Coaching Calendar</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="text-zinc-200 bg-sky-700">
+    <main class="container mx-auto mt-28 px-5 flex grid grid-cols=12">
+      <%= render partial: "/layouts/header" %>
+
+      <%= yield %>
+
+      <p><%= render partial: "/layouts/footer" %></p>
+    </main>
   </body>
 </html>
