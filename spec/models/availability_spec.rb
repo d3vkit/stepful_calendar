@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Availability, type: :model do
+RSpec.describe Availability do
   it { is_expected.to belong_to(:calendar) }
 
   it { is_expected.to validate_presence_of(:start_time) }

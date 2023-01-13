@@ -127,6 +127,10 @@ jobs:
             mkdir tmp/test-results
 
       - run:
+          name: Lint Factories
+          command: bundle exec rake factory_bot:lint
+
+      - run:
           name: Run specs
           command: |
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
