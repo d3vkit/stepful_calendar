@@ -56,9 +56,13 @@ jobs:
             - v1-rubocop-cache-{{ checksum ".rubocop.yml" }}-main
             - v1-rubocop-cache-{{ checksum ".rubocop.yml" }}
 
-      # - run:
-      #     name: Rubocop
-      #     command: bundle exec rubocop --parallel
+      - run:
+          name: Lint Factories
+          command: bundle exec rake factory_bot:lint
+
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop --parallel
 
       - save_cache:
           key: v1-rubocop-cache-{{ checksum ".rubocop.yml" }}-{{ .Branch }}-{{ epoch }}
@@ -125,10 +129,6 @@ jobs:
           name: Create test results directory
           command: |
             mkdir tmp/test-results
-
-      - run:
-          name: Lint Factories
-          command: bundle exec rake factory_bot:lint
 
       - run:
           name: Run specs
