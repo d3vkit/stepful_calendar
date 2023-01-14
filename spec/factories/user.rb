@@ -7,11 +7,11 @@ FactoryBot.define do
     type { 'student' }
 
     factory :coach, class: 'Coach', parent: :user do
-      type { 'coach' }
+      type { 'Coach' }
     end
 
     factory :student, class: 'Student', parent: :user do
-      type { 'student' }
+      type { 'Student' }
     end
   end
 end

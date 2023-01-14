@@ -2,5 +2,5 @@
 
 class User < ApplicationRecord
   validates :name, :type, presence: true
-  validates :type, inclusion: { in: %w[coach student] }
+  validates :type, inclusion: { in: %w[Coach Student] }
 end

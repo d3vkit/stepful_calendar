@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  resources :calendar
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "calendars#show"
 
-  # Defines the root path route ("/")
-  root "calendar#show"
+  resources :users, shallow: true do
+    resource :schedule, only: [:show]
+    resource :calendar
+  end
+
+  get "change_user", to: "users#change"
+  get "change_user_to", to: "users#change_to"
 end

@@ -1,2 +1,27 @@
 <div id="<%= dom_id calendar %>">
+  <div class="table w-full">
+    <div class="table-header-group">
+      <div class="table-row">
+        <div class="table-cell">
+          Start Time
+        </div>
+
+        <div class="table-cell">
+          End Time
+        </div>
+
+        <% if current_user.is_a?(Coach) %>
+          <div class="table-cell">
+            Reserved?
+          </div>
+        <% end %>
+
+        <div class="table-cell">
+          Actions
+        </div>
+      </div>
+    </div>
+
+    <%= render availabilities %>
+  </div>
 </div>

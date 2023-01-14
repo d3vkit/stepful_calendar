@@ -16,13 +16,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
   enable_extension "plpgsql"
 
   create_table "appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_id", null: false
+    t.uuid "availability_id", null: false
     t.uuid "user_id", null: false
-    t.datetime "start_time", null: false
-    t.datetime "end_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_id"], name: "index_appointments_on_calendar_id"
+    t.index ["availability_id"], name: "index_appointments_on_availability_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
@@ -50,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "appointments", "calendars"
+  add_foreign_key "appointments", "availabilities"
   add_foreign_key "appointments", "users"
   add_foreign_key "availabilities", "calendars"
   add_foreign_key "calendars", "users"

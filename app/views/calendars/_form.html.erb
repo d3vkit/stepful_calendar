@@ -1,4 +1,4 @@
-<%= form_with(model: calendar) do |form| %>
+<%= form_with(model: calendar, url: user_calendar_path(calendar.coach), method: :patch) do |form| %>
   <% if calendar.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(calendar.errors.count, "error") %> prohibited this calendar from being saved:</h2>
