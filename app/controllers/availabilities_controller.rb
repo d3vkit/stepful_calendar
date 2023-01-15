@@ -16,15 +16,7 @@ class AvailabilitiesController < ApplicationController
   def create
     @availability = calendar.availabilities.new(create_params)
 
-    respond_to do |format|
-      if @availability.save
-        format.html { redirect_to user_calendar_url(user), notice: 'Availability was successfully created.' }
-        format.json { render :show, status: :created, location: calendar }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @availability.errors, status: :unprocessable_entity }
-      end
-    end
+    create_and_respond(@availability)
   end
 
   def update; end
@@ -48,5 +40,17 @@ class AvailabilitiesController < ApplicationController
 
   def create_params
     params.require(:availability).permit(:start_time, :end_time)
+  end
+
+  def create_and_respond(availability)
+    respond_to do |format|
+      if availability.save
+        format.html { redirect_to user_calendar_url(user), notice: 'Availability was successfully created.' }
+        format.json { render :show, status: :created, location: calendar }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: availability.errors, status: :unprocessable_entity }
+      end
+    end
   end
 end
