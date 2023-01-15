@@ -132,7 +132,7 @@ jobs:
 
       - run:
           name: Prepare tailwind
-          command: bundle exec rails test:prepare test
+          command: bundle exec rails test:prepare
 
       - run:
           name: Run specs
