@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :review do
-    appointment { nil }
-    note { "MyText" }
-    rating { 1 }
+    appointment
   end
 end
