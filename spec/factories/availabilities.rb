@@ -9,15 +9,11 @@ FactoryBot.define do
 
     trait :reserved do
       after(:build) do |availability, _evaluator|
-        if availability.appointment.nil?
-          FactoryBot.build(:appointment, availability:)
-        end
+        FactoryBot.build(:appointment, availability:) if availability.appointment.nil?
       end
 
       after(:create) do |availability, _evaluator|
-        if availability.appointment.nil?
-          FactoryBot.create(:appointment, availability:)
-        end
+        FactoryBot.create(:appointment, availability:) if availability.appointment.nil?
       end
     end
   end

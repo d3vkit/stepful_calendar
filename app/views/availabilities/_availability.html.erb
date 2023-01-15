@@ -7,7 +7,7 @@
     <%= availability.end_time.strftime("%-m-%-d-%y %H:%M %Z") %>
   </div>
 
-  <% if current_user.is_a?(Coach) %>
+  <% if current_user.coach? %>
     <div class="table-cell">
       <% if availability.reserved? %>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon">
