@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resource :schedule, only: [:show]
     resource :calendar do
       resources :availabilities do
-        resources :appointments
+        resources :appointments do
+          resource :review
+        end
       end
     end
   end
