@@ -1,14 +1,14 @@
-<%= form_with model: @availability,
+<%= form_with model: availability,
               url: user_calendar_availabilities_path(current_user),
               method: :post,
               class: "col-span-12 inner-grid" do |form| %>
 
-  <% if @availability.errors.any? %>
-    <div class="form-errors">
-      <h2><%= pluralize(@availability.errors.count, "error") %> prohibited this availability from being saved:</h2>
+  <% if availability.errors.any? %>
+    <div class="col-span-12 form-errors">
+      <h2><%= pluralize(availability.errors.count, "error") %> prohibited this availability from being saved:</h2>
 
       <ul>
-        <% @availability.errors.each do |error| %>
+        <% availability.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -36,6 +36,6 @@
   </div>
 
   <div class="col-span-12">
-    <%= form.submit "Create", class: "button mt-2" %>
+    <%= form.submit class: "button mt-2 text-center" %>
   </div>
 <% end %>

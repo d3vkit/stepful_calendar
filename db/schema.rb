@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_15_225101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -40,6 +40,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
     t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
+  create_table "reviews", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "appointment_id", null: false
+    t.text "note"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_reviews_on_appointment_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "type"
@@ -51,4 +60,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
   add_foreign_key "appointments", "users"
   add_foreign_key "availabilities", "calendars"
   add_foreign_key "calendars", "users"
+  add_foreign_key "reviews", "appointments"
 end

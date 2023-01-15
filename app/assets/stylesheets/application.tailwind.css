@@ -55,7 +55,7 @@ html {
   @apply bg-sky-600;
 }
 
-input {
+input, textarea {
   @apply text-gray-600;
 }
 

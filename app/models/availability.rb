@@ -17,6 +17,10 @@ class Availability < ApplicationRecord
     appointment.present?
   end
 
+  def reviewed?
+    appointment.review.present?
+  end
+
   private
 
   def start_time_in_future
