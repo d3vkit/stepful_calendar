@@ -24,6 +24,14 @@
   </div>
 
   <div class="col-span-12">
+    <%= form.label :rating %>
+  </div>
+
+  <div class="col-span-12">
+    <%= form.select :rating, (1..5), { include_blank: true } %>
+  </div>
+
+  <div class="col-span-12">
     <%= form.submit class: "button mt-2 text-center" %>
   </div>
 <% end %>

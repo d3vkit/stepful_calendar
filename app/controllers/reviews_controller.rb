@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:note)
+    params.require(:review).permit(:note, :rating)
   end
 
   def calendar
