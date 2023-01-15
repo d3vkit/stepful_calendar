@@ -44,13 +44,13 @@ class Availability < ApplicationRecord
   # rubocop:disable Lint/FloatComparison
   def time_slot_length
     return if end_time.nil? || start_time.nil?
-    return if duration.ceil.to_f == 2.hours.ceil.to_f
+    return if duration.to_f == 2.hours.ceil.to_f
 
     errors.add(:time_slot, 'must be exactly two hours long')
   end
   # rubocop:enable Lint/FloatComparison
 
   def duration
-    end_time.to_f - start_time.to_f
+    end_time.ceil.to_f - start_time.ceil.to_f
   end
 end

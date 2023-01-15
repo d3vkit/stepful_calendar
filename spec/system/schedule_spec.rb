@@ -40,13 +40,17 @@ RSpec.describe 'Schedule management' do
       expect(page).not_to have_selector('.appointment')
     end
 
-    scenario 'Viewing the schedule with past appointments' do
-      app1.availability.update!(start_time: 1.day.ago, end_time: 1.day.ago + 2.hours)
+    context 'with past appointments' do
+      let(:avail1) do
+        travel_to(1.day.ago) { create(:availability, calendar:, reserved: true) }
+      end
 
-      visit user_schedule_path(coach)
+      scenario 'Viewing the schedule' do
+        visit user_schedule_path(coach)
 
-      expect(page).not_to have_selector("#appointment_#{app1.id}")
-      expect(page).to have_selector("#appointment_#{app2.id}")
+        expect(page).not_to have_selector("#appointment_#{app1.id}")
+        expect(page).to have_selector("#appointment_#{app2.id}")
+      end
     end
   end
 
@@ -71,13 +75,17 @@ RSpec.describe 'Schedule management' do
           have_selector("#appointment_#{app3.id}")
     end
 
-    scenario 'Viewing the schedule with past appointments' do
-      app1.availability.update!(start_time: 1.day.ago)
+    context 'when there are past appointments' do
+      let(:avail1) do
+        travel_to(1.day.ago) { create(:availability, calendar:, reserved: true) }
+      end
 
-      visit user_schedule_path(coach)
+      scenario 'Viewing the schedule with past appointments' do
+        visit user_schedule_path(coach)
 
-      expect(page).not_to have_selector("#appointment_#{app1.id}")
-      expect(page).to have_selector("#appointment_#{app2.id}")
+        expect(page).not_to have_selector("#appointment_#{app1.id}")
+        expect(page).to have_selector("#appointment_#{app2.id}")
+      end
     end
   end
 end
