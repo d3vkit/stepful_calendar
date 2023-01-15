@@ -131,6 +131,10 @@ jobs:
           command: bundle exec rake factory_bot:lint
 
       - run:
+          name: Prepare tailwind
+          command: bundle exec rails test:prepare
+
+      - run:
           name: Run specs
           command: |
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \

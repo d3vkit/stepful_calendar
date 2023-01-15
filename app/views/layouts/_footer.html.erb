@@ -1,0 +1,3 @@
+<%= link_to "/change_user", class: "button" do %>
+  Change to <%= current_user.kind_of?(Student) ? 'Coach' : 'Student' %>
+<% end %>

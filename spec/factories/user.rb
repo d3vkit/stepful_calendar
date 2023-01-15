@@ -4,14 +4,14 @@ FactoryBot.define do
   factory :user do
     id { SecureRandom.uuid }
     name { Faker::Name.name }
-    type { 'student' }
+    type { 'Student' }
 
     factory :coach, class: 'Coach', parent: :user do
-      type { 'coach' }
+      type { 'Coach' }
     end
 
     factory :student, class: 'Student', parent: :user do
-      type { 'student' }
+      type { 'Student' }
     end
   end
 end
