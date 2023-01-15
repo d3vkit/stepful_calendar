@@ -1,22 +1,22 @@
-<div id="<%= dom_id calendar %>">
+<div id="<%= dom_id calendar %>" class="col-span-12">
   <div class="table w-full">
     <div class="table-header-group">
       <div class="table-row">
-        <div class="table-cell">
+        <div class="table-cell border-solid border">
           Start Time
         </div>
 
-        <div class="table-cell">
+        <div class="table-cell border-solid border">
           End Time
         </div>
 
         <% if current_user.is_a?(Coach) %>
-          <div class="table-cell">
+          <div class="table-cell border-solid border">
             Reserved?
           </div>
         <% end %>
 
-        <div class="table-cell">
+        <div class="table-cell border-solid border">
           Actions
         </div>
       </div>
