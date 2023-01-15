@@ -10,8 +10,10 @@ RSpec.describe 'Schedule management' do
   let(:coach)    { create(:coach) }
   let(:student)  { create(:student) }
   let(:calendar) { create(:calendar, coach:) }
-  let(:avail1)   { create(:availability, calendar:, reserved: true, start_time: 1.hour.from_now) }
-  let(:avail2)   { create(:availability, calendar:, reserved: true, start_time: 3.hours.from_now) }
+  let(:avail1)   { create(:availability, calendar:, reserved: true) }
+  let(:avail2) do
+    create(:availability, calendar:, reserved: true, start_time: 3.hours.from_now, end_time: 5.hours.from_now)
+  end
   let!(:app1)    { create(:appointment, availability: avail1, student:) }
   let!(:app2)    { create(:appointment, availability: avail2, student:) }
 
@@ -39,7 +41,7 @@ RSpec.describe 'Schedule management' do
     end
 
     scenario 'Viewing the schedule with past appointments' do
-      app1.availability.update!(start_time: 1.day.ago)
+      app1.availability.update!(start_time: 1.day.ago, end_time: 1.day.ago + 2.hours)
 
       visit user_schedule_path(coach)
 

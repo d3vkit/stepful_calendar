@@ -36,7 +36,7 @@ html {
 }
 
 .title {
-  @apply underline;
+  @apply underline mb-2;
 }
 
 .inner-grid {
@@ -53,4 +53,20 @@ html {
 
 .table .table-row.odd {
   @apply bg-sky-600;
+}
+
+input {
+  @apply text-gray-600;
+}
+
+.form-errors {
+  @apply col-span-12 border p-2 mb-2 bg-blue-700;
+}
+
+.icon svg {
+  @apply w-5 h-5;
+}
+
+.notice {
+  @apply text-green-500;
 }

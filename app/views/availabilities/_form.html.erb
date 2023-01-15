@@ -1,0 +1,41 @@
+<%= form_with model: @availability,
+              url: user_calendar_availabilities_path(current_user),
+              method: :post,
+              class: "col-span-12 inner-grid" do |form| %>
+
+  <% if @availability.errors.any? %>
+    <div class="form-errors">
+      <h2><%= pluralize(@availability.errors.count, "error") %> prohibited this availability from being saved:</h2>
+
+      <ul>
+        <% @availability.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-span-6 inner-grid">
+    <div class="col-span-12">
+      <%= form.label :start_time %>
+    </div>
+
+    <div class="col-span-12">
+      <%= form.datetime_local_field :start_time %>
+    </div>
+  </div>
+
+  <div class="col-span-6 inner-grid">
+    <div class="col-span-12">
+      <%= form.label :end_time %>
+    </div>
+
+    <div class="col-span-12">
+      <%= form.datetime_local_field :end_time %>
+    </div>
+  </div>
+
+  <div class="col-span-12">
+    <%= form.submit "Create", class: "button mt-2" %>
+  </div>
+<% end %>

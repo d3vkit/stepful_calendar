@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     # CHANGE TO LOGIN SYSTEM
-    cookies[:user_type] == 'Coach' ? Coach.first : Student.first
+    @coach ||= Coach.first
+    @student ||= Student.first
+
+    @current_user = cookies[:user_type] == 'Coach' ? @coach : @student
   end
 
   private

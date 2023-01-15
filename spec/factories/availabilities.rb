@@ -5,7 +5,7 @@ FactoryBot.define do
     calendar
 
     reserved { false }
-    start_time { '2023-01-12 22:34:33' }
-    end_time { '2023-01-12 22:34:33' }
+    start_time { 1.minute.from_now }
+    end_time { start_time + 2.hours }
   end
 end

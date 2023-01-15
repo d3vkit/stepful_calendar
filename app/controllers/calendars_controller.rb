@@ -44,7 +44,7 @@ class CalendarsController < ApplicationController
     @calendar ||= user.calendar
   end
 
-  def calendar_params
-    params.fetch(:calendar, {})
-  end
+  # def calendar_params
+  #   params.fetch(:calendar, {})
+  # end
 end
