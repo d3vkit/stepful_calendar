@@ -8,8 +8,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-coach = Coach.create!(name: 'Coach')
-student = Student.create!(name: 'Student')
+coach = Coach.create!(name: 'Splinter')
+student = Student.create!(name: 'Michelangelo')
 
 calendar = coach.create_calendar
 avail = calendar.availabilities.create(start_time: 1.day.from_now, end_time: 1.day.from_now + 2.hours)

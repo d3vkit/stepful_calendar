@@ -12,12 +12,18 @@
   </head>
 
   <body class="text-zinc-200 bg-sky-700">
-    <main class="container mx-auto mt-28 px-5 flex grid grid-cols=12">
-      <%= render partial: "/layouts/header" %>
+    <main class="container mx-auto mt-28 px-5 inner-grid">
+      <div class="col-span-12 border-b pb-5 mb-5 inner-grid">
+        <%= render partial: "/layouts/header" %>
+      </div>
 
-      <%= yield %>
+      <div class="col-span-12 inner-grid">
+        <%= yield %>
+      </div>
 
-      <p><%= render partial: "/layouts/footer" %></p>
+      <div class="col-span-12 border-t pb-5 mt-5 inner-grid">
+        <%= render partial: "/layouts/footer" %>
+      </div>
     </main>
   </body>
 </html>

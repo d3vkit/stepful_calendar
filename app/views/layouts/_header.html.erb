@@ -1,16 +1,13 @@
-<div>
-  <p>
-    Welcome, <%= current_user.name %>!
+<div class="col-span-6">
+  Welcome, <%= current_user.name %>!
+</div>
 
-    <% if current_page?(controller: 'calendars', action: 'show') %>
-      <%= link_to "Schedule", user_schedule_path(current_user), class: "button" %>
-    <% else %>
-      <% if current_user.is_a?(Coach) %>
-        <%= link_to "Calendar", user_calendar_path(current_user), class: "button" %>
-      <% else %>
-        <%= link_to "Coaches", "/coaches", class: "button" %>
-      <% end %>
-    <% end %>
+<div class="col-span-6 flex justify-end">
+  <%= link_to "Schedule", user_schedule_path(current_user), class: "link" %>
 
-  </p>
+  <% if current_user.is_a?(Coach) %>
+    <%= link_to "Calendar", user_calendar_path(current_user), class: "link" %>
+  <% else %>
+    <%= link_to "Coaches", "/coaches", class: "link" %>
+  <% end %>
 </div>

@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   root "calendars#show"
 
+  resources :coaches, only: [:index]
+
   resources :users, shallow: true do
     resource :schedule, only: [:show]
-    resource :calendar
+    resource :calendar do
+      resources :availabilities
+    end
   end
 
   get "change_user", to: "users#change"

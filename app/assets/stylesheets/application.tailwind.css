@@ -31,6 +31,26 @@ html {
   @apply text-white py-2 px-4 rounded border-2 bg-cyan-900;
 }
 
+.link {
+  @apply text-white mx-4 underline;
+}
+
 .title {
   @apply underline;
+}
+
+.inner-grid {
+  @apply flex grid grid-cols-12;
+}
+
+.table-cell {
+  @apply p-2
+}
+
+.table .table-header-group .table-row {
+  @apply bg-emerald-700;
+}
+
+.table .table-row.odd {
+  @apply bg-sky-600;
 }
