@@ -1,6 +1,8 @@
-<h3 class="title col-span-12"><%= @calendar.coach.name %>'s Calendar</h3>
+<h3 class="title col-span-12">
+  <%= @calendar.coach.name %>'s Calendar
+</h3>
 
-<p style="color: green" class="col-span-12"><%= notice %></p>
+<p class="notice col-span-12"><%= notice %></p>
 
 <%= render partial: "calendar", locals: { calendar: @calendar, availabilities: @availabilities } %>
 
