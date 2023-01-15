@@ -8,7 +8,6 @@ class Appointment < ApplicationRecord
   delegate :end_time, to: :availability
 
   def self.upcoming
-    # binding.pry
     includes(:availability).where(availabilities: { reserved: true, start_time: Time.current.. })
   end
 end
