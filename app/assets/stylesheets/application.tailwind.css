@@ -63,7 +63,7 @@ input {
   @apply col-span-12 border p-2 mb-2 bg-blue-700;
 }
 
-.icon svg {
+.icon svg, svg.icon {
   @apply w-5 h-5;
 }
 

@@ -3,5 +3,5 @@
 </div>
 
 <%= link_to "/change_user", class: "button mt-3 col-span-4 text-center" do %>
-  <%= current_user.kind_of?(Student) ? 'Log in as Coach' : 'Log in as Student' %>
+  <%= current_user.student? ? 'Log in as Coach' : 'Log in as Student' %>
 <% end %>

@@ -25,7 +25,7 @@ class AvailabilitiesController < ApplicationController
     @availability = Availability.find(params[:id])
     @availability.destroy
 
-    redirect_to root_path, status: :see_other, notice: 'Availability was successfully created.'
+    redirect_to root_path, status: :no_content, notice: 'Availability was successfully created.'
   end
 
   private

@@ -5,7 +5,6 @@ class Availability < ApplicationRecord
   belongs_to :calendar
 
   validates :start_time, :end_time, presence: true
-  validates :reserved, inclusion: { in: [true, false] }
 
   validate :start_time_in_future
   validate :end_time_in_future
@@ -14,8 +13,8 @@ class Availability < ApplicationRecord
 
   attribute :time_slot
 
-  def self.upcoming_appointments
-    includes(:appointment).where(reserved: true, start_time: Time.current..)
+  def reserved?
+    appointment.present?
   end
 
   private

@@ -5,7 +5,7 @@
 <div class="col-span-6 flex justify-end">
   <%= link_to "Schedule", user_schedule_path(current_user), class: "link" %>
 
-  <% if current_user.is_a?(Coach) %>
+  <% if current_user.coach? %>
     <%= link_to "Calendar", user_calendar_path(current_user), class: "link" %>
   <% else %>
     <%= link_to "Coaches", "/coaches", class: "link" %>

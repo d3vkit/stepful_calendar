@@ -6,6 +6,8 @@
 
 <%= render partial: "calendar", locals: { calendar: @calendar, availabilities: @availabilities } %>
 
-<%= link_to "Add Availability",
-            new_user_calendar_availability_path(current_user),
-            class: "button col-span-2 mt-2 text-center" %>
+<% if current_user.coach? %>
+  <%= link_to "Add Availability",
+              new_user_calendar_availability_path(current_user),
+              class: "button col-span-2 mt-2 text-center" %>
+<% end %>
