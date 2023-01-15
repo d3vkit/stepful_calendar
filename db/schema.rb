@@ -26,7 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_063700) do
 
   create_table "availabilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_id", null: false
-    t.boolean "reserved", default: false, null: false
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
     t.datetime "created_at", null: false

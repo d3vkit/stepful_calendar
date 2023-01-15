@@ -9,16 +9,16 @@ RSpec.describe Appointment do
   describe '.upcoming' do
     subject { described_class.upcoming }
 
-    let(:calendar) { create(:calendar) }
-    let(:reserved) { create(:availability, calendar:, reserved: true) }
-    let!(:appointment) { create(:appointment, availability: reserved) }
+    let(:calendar)     { create(:calendar) }
+    let(:availability) { create(:availability, :reserved, calendar:) }
+    let!(:appointment) { availability.appointment }
 
-    before { create(:availability, calendar:, reserved: false, start_time: 1.day.from_now) }
+    before { create(:availability, calendar:, start_time: 1.day.from_now) }
 
     it { is_expected.to match_array([appointment]) }
 
     context 'when the appointment availability was in the past' do
-      let(:reserved) { travel_to(1.day.ago) { create(:availability, calendar:, reserved: true) } }
+      let(:availability) { travel_to(1.day.ago) { create(:availability, calendar:) } }
 
       it { is_expected.to be_empty }
     end

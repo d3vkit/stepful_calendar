@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :users, shallow: true do
     resource :schedule, only: [:show]
     resource :calendar do
-      resources :availabilities
+      resources :availabilities do
+        resources :appointments
+      end
     end
   end
 

@@ -6,6 +6,8 @@ class Calendar < ApplicationRecord
   belongs_to :coach, foreign_key: :user_id, inverse_of: :calendar
 
   def scoped_availabilities(user)
-    user.is_a?(Coach) ? availabilities : availabilities.where(reserved: false)
+    return availabilities.includes(:appointment) if user.is_a?(Coach)
+
+    availabilities.includes(:appointment).where(appointments: { availability_id: nil })
   end
 end

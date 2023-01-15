@@ -10,9 +10,9 @@ RSpec.describe 'Schedule management' do
   let(:coach)    { create(:coach) }
   let(:student)  { create(:student) }
   let(:calendar) { create(:calendar, coach:) }
-  let(:avail1)   { create(:availability, calendar:, reserved: true) }
+  let(:avail1)   { create(:availability, calendar:) }
   let(:avail2) do
-    create(:availability, calendar:, reserved: true, start_time: 3.hours.from_now, end_time: 5.hours.from_now)
+    create(:availability, calendar:, start_time: 3.hours.from_now, end_time: 5.hours.from_now)
   end
   let!(:app1)    { create(:appointment, availability: avail1, student:) }
   let!(:app2)    { create(:appointment, availability: avail2, student:) }
@@ -42,7 +42,7 @@ RSpec.describe 'Schedule management' do
 
     context 'with past appointments' do
       let(:avail1) do
-        travel_to(1.day.ago) { create(:availability, calendar:, reserved: true) }
+        travel_to(1.day.ago) { create(:availability, :reserved, calendar:) }
       end
 
       scenario 'Viewing the schedule' do
@@ -65,7 +65,7 @@ RSpec.describe 'Schedule management' do
     end
 
     scenario "Viewing the schedule with a different coach's appointments" do
-      avail3 = create(:availability, start_time: 1.hour.from_now, reserved: true)
+      avail3 = create(:availability, :reserved, start_time: 1.hour.from_now)
       app3 = create(:appointment, availability: avail3, student:)
 
       visit user_schedule_path(coach)
@@ -77,7 +77,7 @@ RSpec.describe 'Schedule management' do
 
     context 'when there are past appointments' do
       let(:avail1) do
-        travel_to(1.day.ago) { create(:availability, calendar:, reserved: true) }
+        travel_to(1.day.ago) { create(:availability, calendar:) }
       end
 
       scenario 'Viewing the schedule with past appointments' do
