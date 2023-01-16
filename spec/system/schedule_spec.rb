@@ -48,7 +48,7 @@ RSpec.describe 'Schedule management' do
       scenario 'Viewing the schedule' do
         visit user_schedule_path(coach)
 
-        expect(page).not_to have_selector("#appointment_#{app1.id}")
+        expect(page).to have_selector("#appointment_#{app1.id}")
         expect(page).to have_selector("#appointment_#{app2.id}")
       end
     end

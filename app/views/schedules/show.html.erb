@@ -2,22 +2,32 @@
 
 <p style="color: green" class="col-span-12"><%= notice %></p>
 
-<div class="table w-full col-span-12">
-  <div class="table-header-group">
-    <div class="table-row">
-      <div class="table-cell">
+<div class="table w-full col-span-12 inner-grid">
+  <div class="table-header-group col-span-12 inner-grid">
+    <div class="table-row col-span-12 inner-grid">
+      <div class="table-cell col-span-2">
         Start Time
       </div>
 
-      <div class="table-cell">
+      <div class="table-cell col-span-2">
         End Time
       </div>
 
-      <div class="table-cell">
-        Coach Name
+      <div class="table-cell col-span-2">
+        <%= current_user.coach? ? "Student Name" : "Coach Name" %>
       </div>
 
-      <div class="table-cell">
+      <% if current_user.coach? %>
+        <div class="table-cell col-span-2">
+          Note
+        </div>
+
+        <div class="table-cell col-span-2">
+          Rating
+        </div>
+      <% end %>
+
+      <div class="table-cell col-span-2">
         Actions
       </div>
     </div>

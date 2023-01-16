@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html {
-  --primary: #4299e1;               /* blue-500 */
-  --secondary: #63b3ed;             /* blue-400 */
-  --accent: #bee3f8;                /* blue-200 */
-  --background: repeating-linear-gradient(90deg, #E8F3F8, #E8F3F8 60px, #DBE6EC 60px, #DBE6EC 120px);
-  --card: #f7fafc;                  /* gray-100 */
-  --main: #515b6b;                  /* gray-800 */
-  --header: #2d3748;
-}
-
 @layer base {
   h3 {
     @apply mb-2 font-bold;

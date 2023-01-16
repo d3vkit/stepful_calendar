@@ -13,12 +13,10 @@ class Availability < ApplicationRecord
 
   attribute :time_slot
 
+  delegate :reviewed?, to: :appointment
+
   def reserved?
     appointment.present?
-  end
-
-  def reviewed?
-    appointment.review.present?
   end
 
   private
