@@ -2,7 +2,8 @@
 
 class SchedulesController < ApplicationController
   def show
-    @appointments = appointments.order('availabilities.start_time asc').upcoming
+    @appointments = appointments.order('availabilities.start_time asc')
+    @appointments = @appointments.upcoming if current_user.student?
   end
 
   private

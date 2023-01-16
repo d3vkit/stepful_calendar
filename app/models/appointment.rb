@@ -12,4 +12,8 @@ class Appointment < ApplicationRecord
   def self.upcoming
     includes(:availability).where(availabilities: { start_time: Time.current.. })
   end
+
+  def reviewed?
+    review.present?
+  end
 end
